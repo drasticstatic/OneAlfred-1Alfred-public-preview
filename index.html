@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Alfred</title>
+<meta name="description" content="One Alfred: a shared record so the people and helpers working with The Holy Earth Foundation can tune in to one picture of the work. A proposal, in progress.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d97706' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 20h10'/%3E%3Cpath d='M10 20c5.5-2.5.8-6.4 3-10'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --ground: #eceee8; --surface: #f8f9f5; --ink: #2e2419; --muted: #5b6676; --amber: #b45309; --mark: #d97706;
+    --sprout: #4d7c0f; --rule: #d3d7cc;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --ground: #1a1610; --surface: #221d16; --ink: #ece6da; --muted: #a2aab4; --amber: #f5a524; --mark: #f59e0b; --sprout: #a3c95a; --rule: #3b342a; color-scheme: dark; }
+  }
+  :root[data-theme="dark"] { --ground: #1a1610; --surface: #221d16; --ink: #ece6da; --muted: #a2aab4; --amber: #f5a524; --mark: #f59e0b; --sprout: #a3c95a; --rule: #3b342a; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--sans); font-variant-numeric: tabular-nums; }
+  a { color: var(--amber); text-underline-offset: 0.18em; }
+  :focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 0 16px; }
+  .icon { width: 1.1em; height: 1.1em; vertical-align: -0.18em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .proposed { background: var(--ink); color: var(--ground); font-size: 0.85rem; padding: 0.45rem 16px; text-align: center; }
+  .proposed strong { color: var(--mark); }
+  header { padding: 4rem 0 2.5rem; }
+  .place { color: var(--muted); font-size: 0.95rem; margin: 0; display: flex; gap: 0.4rem; align-items: center; }
+  h1 { font: 400 clamp(2.2rem, 6.5vw, 3.6rem)/1.08 var(--serif); letter-spacing: -0.015em; margin: 0.75rem 0 1.25rem; text-wrap: balance; }
+  .live { font: 400 clamp(1.15rem, 2.6vw, 1.45rem)/1.45 var(--serif); margin: 0; max-width: 34em; }
+  .live .n { color: var(--amber); font-weight: 600; }
+  .live-note { color: var(--muted); font-size: 0.9rem; margin: 0.75rem 0 0; }
+  section { padding: 2.25rem 0; border-top: 1px solid var(--rule); }
+  h2 { font: 400 1.6rem/1.25 var(--serif); margin: 0 0 1rem; display: flex; gap: 0.5rem; align-items: center; }
+  h2 .icon { color: var(--mark); }
+  p { max-width: 38em; }
+  .lines { list-style: none; padding: 0; margin: 0; }
+  .lines li { padding: 0.6rem 0 0.6rem 1.1rem; border-left: 2px solid var(--rule); margin: 0 0 0.4rem; }
+  .lines li b { display: block; }
+  figure { margin: 1.25rem 0 0; }
+  figure svg { width: 100%; height: auto; display: block; }
+  figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 0.5rem; }
+  .z-box { fill: var(--surface); stroke: var(--rule); stroke-width: 1.5; }
+  .z-log { fill: var(--surface); stroke: var(--mark); stroke-width: 2; }
+  .z-t { fill: var(--ink); font: 600 14px var(--sans); }
+  .z-s { fill: var(--muted); font: 12px var(--sans); }
+  .z-line { stroke: var(--mark); stroke-width: 2; fill: none; }
+  .z-dash { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 4; fill: none; }
+  ol.stages { list-style: none; padding: 0; margin: 0; counter-reset: s -1; }
+  ol.stages li { counter-increment: s; display: grid; grid-template-columns: 2.4rem 1fr; gap: 0 0.75rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); }
+  ol.stages li::before { content: counter(s); font: 600 1.35rem/1.2 var(--serif); color: var(--muted); }
+  ol.stages li.here::before { color: var(--amber); }
+  ol.stages .here-tag { color: var(--sprout); font-weight: 600; font-size: 0.85rem; margin-left: 0.4rem; }
+  ol.stages span.w { color: var(--muted); font-size: 0.93rem; display: block; }
+  footer { border-top: 1px solid var(--rule); padding: 1.75rem 0 3.5rem; color: var(--muted); font-size: 0.9rem; }
+  footer p { margin: 0 0 0.6rem; }
+</style>
+</head>
+<body>
+<div class="proposed" role="note"><strong>PROPOSED.</strong> A proposal in progress. Nothing here is adopted, deployed or promised.</div>
+<main class="wrap">
+  <header>
+    <p class="place"><svg class="icon" aria-hidden="true"><use href="icons.svg#map-pin"/></svg>The Holy Earth Foundation, Bushido Software</p>
+    <h1>Many helpers, many people, one truth.</h1>
+    <p class="live" id="live">One Alfred is a shared record that lets everyone working on the foundation's projects tune in to the same picture of the work.</p>
+    <p class="live-note" id="live-note"></p>
+  </header>
+
+  <section aria-labelledby="h-what">
+    <h2 id="h-what"><svg class="icon" aria-hidden="true"><use href="icons.svg#heart"/></svg>One Alfred, many Alfreds</h2>
+    <p>Every helper that sits down to work, human or AI, is an Alfred for an hour: it arrives, does its part and leaves. One Alfred is what they share: one record of who is doing what, what changed and what is waiting on whom, so that nobody starts cold and nobody works over someone else.</p>
+    <p>Nobody owns the truth. Each person and helper keeps their own place in it, asks what changed since they last looked, and adds what they did. People decide; the record remembers.</p>
+  </section>
+
+  <section aria-labelledby="h-lines">
+    <h2 id="h-lines"><svg class="icon" aria-hidden="true"><use href="icons.svg#layers"/></svg>The idea in five lines</h2>
+    <ul class="lines">
+      <li><b>Awareness and collisions first, automatic dispatch last.</b> The first two need no new billing and no model running by itself.</li>
+      <li><b>One record per kind of fact.</b> Code stays in git, documents stay in Drive, and a small append-only log records who is doing what.</li>
+      <li><b>Tune in like <code>git fetch</code>.</b> Each person or helper asks what changed since they last looked. Nothing is pushed into a session in the middle of deep work.</li>
+      <li><b>The machine queues; people decide.</b> A finished task frees its locks and queues an independent review in one step. No helper can mark work accepted.</li>
+      <li><b>Pointers, not bodies.</b> The log holds links, hashes and short notes. It has no place for personal material, so such material has nowhere to be filed.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-zones">
+    <h2 id="h-zones"><svg class="icon" aria-hidden="true"><use href="icons.svg#shield-check"/></svg>Three zones</h2>
+    <p>What belongs to a person stays with that person. Only pointers move into the shared zone.</p>
+    <figure>
+      <svg viewBox="0 0 640 250" role="img" aria-labelledby="zt">
+        <title id="zt">Each person and their helpers fetch what changed from one shared log and add what they did; the log only links to the organisation's Drive and git repositories.</title>
+        <rect class="z-box" x="8" y="20" width="190" height="210" rx="10"/>
+        <text class="z-t" x="24" y="46">Personal zone</text>
+        <text class="z-s" x="24" y="66">each person's own</text>
+        <rect class="z-box" x="28" y="90" width="150" height="48" rx="8"/><text class="z-t" x="44" y="119">A person + helpers</text>
+        <rect class="z-box" x="28" y="160" width="150" height="48" rx="8"/><text class="z-t" x="44" y="189">A person + helpers</text>
+        <rect class="z-log" x="244" y="86" width="152" height="78" rx="39"/>
+        <text class="z-t" x="320" y="120" text-anchor="middle">One log</text>
+        <text class="z-s" x="320" y="140" text-anchor="middle">pointers, not bodies</text>
+        <text class="z-s" x="320" y="190" text-anchor="middle">Coordination zone</text>
+        <path class="z-line" d="M178 114 C215 114 220 112 250 116"/>
+        <path class="z-line" d="M178 184 C215 184 220 140 250 136"/>
+        <text class="z-s" x="182" y="96">fetch / add</text>
+        <rect class="z-box" x="442" y="20" width="190" height="210" rx="10"/>
+        <text class="z-t" x="458" y="46">Organisation zone</text>
+        <text class="z-s" x="458" y="66">the foundation's</text>
+        <rect class="z-box" x="462" y="90" width="150" height="48" rx="8"/><text class="z-t" x="478" y="119">Drive and Docs</text>
+        <rect class="z-box" x="462" y="160" width="150" height="48" rx="8"/><text class="z-t" x="478" y="189">git repositories</text>
+        <path class="z-dash" d="M390 116 C420 116 430 114 462 114"/>
+        <path class="z-dash" d="M390 136 C420 136 430 184 462 184"/>
+        <text class="z-s" x="396" y="96">links only</text>
+      </svg>
+      <figcaption>A person's material never crosses into the shared zone; the log has no place to put it.</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-stages">
+    <h2 id="h-stages"><svg class="icon" aria-hidden="true"><use href="icons.svg#route"/></svg>Where it stands</h2>
+    <p>Each stage stops by itself unless a person approves the next.</p>
+    <ol class="stages">
+      <li class="here"><div><b>Contract</b><span class="here-tag">we are here</span><span class="w">A shared shape for tasks and results, used by hand. Alongside it, a read-only index and a log of what changed, run by a person.</span></div></li>
+      <li><div><b>Shadow ledger</b><span class="w">The log runs beside the foundation's existing document, which stays the record.</span></div></li>
+      <li><div><b>Notify</b><span class="w">"N new for you" reaches the right person, without anyone relaying it.</span></div></li>
+      <li><div><b>Cutover</b><span class="w">The log becomes the record, only when the people responsible say so.</span></div></li>
+      <li><div><b>Dispatch</b><span class="w">Queued work starts helpers by itself, under spending caps, once money and authority are decided.</span></div></li>
+    </ol>
+  </section>
+</main>
+<footer class="wrap">
+  <p>A teaser for a private working repository. The working record, its documents and the people's names stay private; this page shows counts only.</p>
+  <p>Licence for the contents: not yet decided, so all rights are reserved for now. Icons: <a href="https://lucide.dev">Lucide</a> (ISC).</p>
+</footer>
+<script>
+  "use strict";
+  (async () => {
+    try {
+      const res = await fetch("pulse.json", { cache: "no-store" });
+      if (!res.ok) return;
+      const p = await res.json();
+      const n = (x) => { const s = document.createElement("span"); s.className = "n"; s.textContent = x; return s; };
+      const live = document.getElementById("live");
+      live.replaceChildren("Right now, ", n(p.in_view), " documents and files are in view, ", n(p.changed_this_week),
+        " of them changed in the last week, and ", n(p.decisions_open), " decisions are waiting on people.");
+      const when = new Date(p.scanned_at).toLocaleString(undefined, { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+      document.getElementById("live-note").textContent =
+        `Counted ${when}: ${p.drive} in the foundation's Drive and ${p.repositories} in its repositories. The log holds ${p.log_events} entries.`;
+    } catch { /* the page reads well without the numbers */ }
+  })();
+</script>
+</body>
+</html>
